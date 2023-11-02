@@ -31,5 +31,4 @@ public class SwapCatBackApplication {
 
 	private void callBack() {
 	}
-
 }
