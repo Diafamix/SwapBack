@@ -21,4 +21,11 @@ public class CoinCapPriceUpdateEvent extends ApplicationEvent {
         return price;
     }
 
+    @Override
+    public String toString() {
+        return "CoinCapPriceUpdateEvent{" +
+                "coin='" + coin + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
