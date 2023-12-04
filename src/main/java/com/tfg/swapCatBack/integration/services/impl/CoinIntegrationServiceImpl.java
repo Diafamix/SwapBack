@@ -1,15 +1,20 @@
 package com.tfg.swapCatBack.integration.services.impl;
 
-
 import com.tfg.swapCatBack.dto.integration.*;
 import com.tfg.swapCatBack.integration.adapters.*;
 import com.tfg.swapCatBack.integration.services.ICoinIntegrationService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+
 @Service
+@Primary
+@Qualifier("Impl")
 @AllArgsConstructor
 public class CoinIntegrationServiceImpl implements ICoinIntegrationService {
 
@@ -18,6 +23,7 @@ public class CoinIntegrationServiceImpl implements ICoinIntegrationService {
     private final ICandleCapMetaAdapter candleCapMetaAdapter;
     private final IConvertorAdapter convertorAdapter;
     private final IHistoryAdapter historyAdapter;
+    private final IHistoricalMarketAdapter historicalMarketAdapter;
 
     @Override
     public Mono<CoinMetadataDTO> getInfo(String coinID) {
@@ -62,6 +68,11 @@ public class CoinIntegrationServiceImpl implements ICoinIntegrationService {
     @Override
     public Flux<CoinMarketDTO> getAllMarketByIds(String... ids) {
         return coinMarketAdapter.getManyCoinsByIds(ids);
+    }
+
+    @Override
+    public Mono<CoinHistoricalMarketDTO> getHistorical(String coinId, LocalDate dateAt) {
+        return historicalMarketAdapter.getHistorical(coinId, dateAt);
     }
 
     @Override

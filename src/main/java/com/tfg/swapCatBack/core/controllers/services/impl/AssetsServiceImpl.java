@@ -5,17 +5,11 @@ import com.tfg.swapCatBack.data.providers.ICoinProvider;
 import com.tfg.swapCatBack.data.providers.mappers.IMapper;
 import com.tfg.swapCatBack.dto.controller.CoinDTO;
 import com.tfg.swapCatBack.dto.data.response.CoinResponseDTO;
-import com.tfg.swapCatBack.dto.integration.CandleInfoDTO;
-import com.tfg.swapCatBack.dto.integration.CoinMetadataDTO;
-import com.tfg.swapCatBack.dto.integration.HistoryInfoDTO;
-import com.tfg.swapCatBack.integration.services.ICoinIntegrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
