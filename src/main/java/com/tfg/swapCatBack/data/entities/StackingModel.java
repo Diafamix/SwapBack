@@ -21,7 +21,6 @@ public class StackingModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
     @ManyToOne
     private CoinModel coin;
 
