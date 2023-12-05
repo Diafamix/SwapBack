@@ -2,6 +2,7 @@ package com.tfg.swapCatBack.core.controllers;
 
 import com.tfg.swapCatBack.core.controllers.services.IAssetsService;
 import com.tfg.swapCatBack.core.controllers.utils.RestResponse;
+import com.tfg.swapCatBack.core.controllers.utils.TokenConsume;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,21 @@ import java.util.Optional;
 public class AssetsController {
 
     private final IAssetsService assetsService;
+    @GetMapping("assets")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get all coins supported")
+    public RestResponse list() {
+        return RestResponse.encapsulate(assetsService.list());
+    }
+
+    @GetMapping("assets/{coinID}")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get metadata for an specific coin")
+    @TokenConsume(2)
+    public Mono<RestResponse> get(@PathVariable String coinID) {
+        return assetsService.getMetadata(coinID)
+                .map(RestResponse::encapsulate);
+    }
 
     @GetMapping("markets")
     @ResponseStatus(HttpStatus.OK)
@@ -33,5 +49,41 @@ public class AssetsController {
                 .collectList()
                 .map(RestResponse::encapsulate);
     }
+
+    @GetMapping("markets/{coinID}")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get current data (name, price, market, ...) for a coin by id")
+    @TokenConsume(2)
+    public Mono<RestResponse> getById(@PathVariable String coinID) {
+        return assetsService.getById(coinID)
+                .map(RestResponse::encapsulate);
+    }
+
+    @GetMapping("assets/getHistory")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get historical data (name, price, market, stats) at a given date for a coin")
+    @TokenConsume(2)
+    public Mono<RestResponse> getHistory(@NotBlank String id,
+                                         @NotBlank String vs_currency,
+                                         @NotBlank String days,
+                                         @RequestParam Optional<String> interval) {
+
+        return assetsService.getAllHistory(id, vs_currency, days, interval)
+                .collectList()
+                .map(RestResponse::encapsulate);
+    }
+
+    @GetMapping("assets/getCandle")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get historical ohlc at a given date range for a coin")
+    @TokenConsume(3)
+    public Mono<RestResponse> getCandle(@NotBlank String id,
+                                        @NotBlank String vs_currency,
+                                        @NotBlank String days) {
+        return assetsService.getAllCandles(id, vs_currency, days)
+                .collectList()
+                .map(RestResponse::encapsulate);
+    }
+
 
 }
