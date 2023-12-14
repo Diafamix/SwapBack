@@ -27,7 +27,6 @@ public class AssetsController {
     @GetMapping("assets")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get all coins supported")
-    @Cacheable("allCoins")
     public RestResponse list() {
         return RestResponse.encapsulate(assetsService.list());
     }
@@ -36,7 +35,6 @@ public class AssetsController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get metadata for an specific coin")
     @TokenConsume(2)
-    @Cacheable("coinMetadata")
     public Mono<RestResponse> get(@PathVariable String coinID) {
         return assetsService.getMetadata(coinID)
                 .map(RestResponse::encapsulate);
@@ -45,7 +43,6 @@ public class AssetsController {
     @GetMapping("markets")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get current data (name, price, market, ...) for all the coins supported")
-    @Cacheable("currentDataForAllCoins")
     public Mono<RestResponse> getAll(@RequestParam(required = false) Optional<String> ids) {
         return ids
                 .map(assetsService::getAll)
@@ -58,7 +55,6 @@ public class AssetsController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get current data (name, price, market, ...) for a coin by id")
     @TokenConsume(2)
-    @Cacheable("currentDataForCoinById")
     public Mono<RestResponse> getById(@PathVariable String coinID) {
         return assetsService.getById(coinID)
                 .map(RestResponse::encapsulate);
@@ -68,7 +64,6 @@ public class AssetsController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get historical data (name, price, market, stats) at a given date for a coin")
     @TokenConsume(2)
-    @Cacheable("historicalDataForCoin")
     public Mono<RestResponse> getHistory(@NotBlank String id,
                                          @NotBlank String vs_currency,
                                          @NotBlank String days,
@@ -83,7 +78,6 @@ public class AssetsController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get historical ohlc at a given date range for a coin")
     @TokenConsume(3)
-    @Cacheable("historicalCandleForCoin")
     public Mono<RestResponse> getCandle(@NotBlank String id,
                                         @NotBlank String vs_currency,
                                         @NotBlank String days) {
