@@ -23,8 +23,8 @@ public class HistoryServiceImpl implements IHistoryService {
     @Override
     public List<HistoryResponseDTO> getAllRegisterUser(LocalDate start, LocalDate end) {
         UserResponseDTO userResponseDTO = userProvider.getByName("carlos.cueva");
-        //return registerProvider.getLogsFromUsers(securityContextHelper.getUser().getUsername(), start, end);
-        return registerProvider.getLogsFromUsers(userResponseDTO.getUsername(), start, end);
+        return registerProvider.getLogsFromUsers(securityContextHelper.getUser().getUsername(), start, end);
+        //return registerProvider.getLogsFromUsers(userResponseDTO.getUsername(), start, end);
     }
 
     @Override

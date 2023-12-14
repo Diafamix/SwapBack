@@ -29,14 +29,14 @@ public class PortfolioServiceImpl implements IPortfolioService {
 
     @Override
     public WalletResponseDto get(String coin) {
-        //return accountProvider.get(securityContextHelper.getUser().getUsername(), coin);
-        return accountProvider.get("carlos.cueva", coin);
+        return accountProvider.get(securityContextHelper.getUser().getUsername(), coin);
+        //return accountProvider.get("carlos.cueva", coin);
     }
 
     @Override
     public PortfolioResponseDTO getAll() {
-        //UserResponseDTO userResponseDTO = securityContextHelper.getUser();
-        UserResponseDTO userResponseDTO = userProvider.getByName("carlos.cueva");
+        UserResponseDTO userResponseDTO = securityContextHelper.getUser();
+       //UserResponseDTO userResponseDTO = userProvider.getByName("carlos.cueva");
         Map<String, WalletResponseDto> wallets = userResponseDTO.getWallet();
 
         return mapper.mapToDto(wallets);
@@ -44,8 +44,8 @@ public class PortfolioServiceImpl implements IPortfolioService {
 
     @Override
     public List<HistoryInfoDTO> getPortfolioChart() {
-        //return portfolioCalculator.calculateAllTime(securityContextHelper.getUser().username);
-        return portfolioCalculator.calculateAllTime(userProvider.getByName("carlos.cueva").username);
+        return portfolioCalculator.calculateAllTime(securityContextHelper.getUser().username);
+        //return portfolioCalculator.calculateAllTime(userProvider.getByName("carlos.cueva").username);
 
     }
 
