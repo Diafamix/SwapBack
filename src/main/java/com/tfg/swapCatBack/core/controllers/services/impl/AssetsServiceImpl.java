@@ -1,6 +1,7 @@
 package com.tfg.swapCatBack.core.controllers.services.impl;
 
 import com.tfg.swapCatBack.core.controllers.services.IAssetsService;
+import com.tfg.swapCatBack.core.services.cache.CoinIntegrationServiceCache;
 import com.tfg.swapCatBack.data.providers.ICoinProvider;
 import com.tfg.swapCatBack.data.providers.mappers.IMapper;
 import com.tfg.swapCatBack.dto.controller.CoinDTO;
@@ -26,7 +27,7 @@ public class AssetsServiceImpl implements IAssetsService {
 
     @Autowired
     @Qualifier("Cache")
-    private ICoinIntegrationService coinService;
+    private CoinIntegrationServiceCache coinService;
 
     @Autowired
     private IMapper<CoinResponseDTO, Mono<CoinDTO>> coinDTOMapper;

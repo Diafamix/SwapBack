@@ -24,9 +24,6 @@ public class UserManagerServiceImpl implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        System.out.println("-----------------" + name + "-----------------");
-        System.out.println("-----------------" + password + "-----------------");
-
         if (!userProvider.existsByUsername(name) && !userProvider.matchesPasswordByUsername(name, password))
             throw new BadCredentialsException("");
 

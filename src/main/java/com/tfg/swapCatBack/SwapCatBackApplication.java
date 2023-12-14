@@ -2,6 +2,7 @@ package com.tfg.swapCatBack;
 
 import com.tfg.swapCatBack.core.loaders.CoinLoader;
 import com.tfg.swapCatBack.core.loaders.UsersLoader;
+import com.tfg.swapCatBack.core.services.IPortfolioCalculator;
 import com.tfg.swapCatBack.data.providers.IAccountProvider;
 import com.tfg.swapCatBack.data.providers.IRegisterProvider;
 import com.tfg.swapCatBack.integration.websocket.CoinCapConsumer;
@@ -25,7 +26,8 @@ public class SwapCatBackApplication {
 			UsersLoader usersLoader,
 			IAccountProvider accountProvider,
 			IRegisterProvider registerProvider,
-			CoinCapConsumer coinCapConsumer
+			CoinCapConsumer coinCapConsumer,
+			IPortfolioCalculator portfolioCalculator
 	) {
 		return (args) -> {
 			coinCapConsumer.start(); // Starts websocket
