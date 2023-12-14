@@ -46,6 +46,7 @@ public class PortfolioController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Gets the portfolio chart of the user ")
     @TokenConsume(4)
+    @Cacheable("portfolioChart")
     public RestResponse getPortfolioChart() {
         return RestResponse.encapsulate(portfolioService.getPortfolioChart());
     }
